@@ -1,0 +1,27 @@
+.api-section{
+    text-align: center;
+    
+}
+
+
+.api-section img{
+    width: 250px;
+}
+
+.api-section h2{
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+.api-section h1{
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+.api-section p{
+    font-size: 14px;
+    opacity: 0.8;
+    width: 60%;
+    margin: auto;
+}

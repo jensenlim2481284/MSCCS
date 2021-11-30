@@ -1,0 +1,71 @@
+
+.form-section h1 {
+    font-size: var(--header-font-size) !important;
+}
+
+.form-group h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.form-group p {
+    font-size: var(--paragraph-font-size);
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+.form-group .badge{
+    font-size: 10px !important;
+}
+
+.form-section h1 {
+    margin-bottom: 3px !important;
+}
+.form-section .title-desc {
+    font-size: var(--small-font-size);
+    margin-bottom: 25px;
+    opacity: 0.5;
+}
+.keyword-table .thead-light th{
+    border:none !important;
+}
+
+.keyword-btn{
+    box-shadow: 3px 5px 0px #161076;
+    padding: 10px 18px;
+    border-radius: 35px;
+}
+.keyword-example{
+    display: block;
+    margin-top: 15px;
+    font-size: var(--label-font-size);
+    opacity: 0.6;
+}
+
+.company-form{
+    box-shadow: none !important;
+    background: #f8f8f8 !important;
+    border: 1px solid #ececec !important;
+}
+
+small{
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+.embed-item img{
+    width: 100%;
+}
+.embed-item h2{
+    font-size: 24px;
+    font-weight: 800;
+}
+.embed-item{
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+.embed-item .col-7{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}

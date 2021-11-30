@@ -1,0 +1,203 @@
+/* ------------------------------------------------------------------------------
+Keyframe animation
+-------------------------------------------------------------------------------*/
+.fading-animation{
+    animation: fading-animation 5s infinite;
+}
+.pointing-animation{
+    animation: pointing-animation 1s infinite;
+}
+.beat-animation{
+    animation: beat-animation 2s infinite;
+}
+.slow-beat-animation{
+    animation: slow-beat-animation 4s infinite;
+}
+.shake-animation{
+    animation: shake-animation 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
+}
+.shake-slow-animation{
+    animation: shake-slow-animation 2s cubic-bezier(.36,.07,.19,.97) both infinite;
+}
+.spin-animation{
+    animation: spin-animation 10s infinite;
+}
+.light-rotate-animation{
+    animation: light-rotate-animation 5s infinite;
+}
+.perspective-rotate-animation{
+    animation: perspective-rotate-animation 10s infinite;
+}
+.transform-animation{
+    animation: transform-animation 20s infinite;
+}
+.skew-animation{
+    animation: skew-animation 10s infinite;
+}
+.border-radius-animation{
+    animation: border-radius-animation 5s infinite;
+}
+.border-radius-all-animation{
+    animation: border-radius-all-animation 5s infinite;
+}
+
+
+/* ------------------------------------------------------------------------------
+Keyframe
+-------------------------------------------------------------------------------*/
+@keyframes border-radius-all-animation {
+    0% {
+        border-radius: 0;
+    }
+    10%{
+        border-radius: 20px;
+    }
+    50%{
+        border-radius: 10px;
+    }
+    70%{
+        border-radius: 100%;
+    }
+    100%{
+        border-radius: 0;
+    }
+}
+@keyframes border-radius-animation {
+    0% {
+        border-top-right-radius: 0px;
+
+    }
+    20%{
+        border-radius: 0;
+        border-top-left-radius: 20px;
+    }
+    40%{
+        border-radius: 0;
+        border-bottom-left-radius: 20px;
+    }
+    60%{
+        border-radius: 0;
+        border-bottom-right-radius: 20px;
+    }
+    80% {
+        border-radius: 0;
+        border-top-right-radius: 20px;
+    }
+    100%{
+        border-radius: 0;
+    }
+}
+@keyframes skew-animation {
+    0% {
+        transform: skew(0deg,0deg);
+    }
+    30%{
+        transform: skew(10deg,-10deg);
+    }
+    40%{
+        transform:skew(-10deg,20deg);
+    }
+    55% {
+        transform: skew(10deg,-20deg);
+    }
+    75%{
+        transform:skew(15deg,10deg);
+    }
+    100% {
+        transform: skew(0deg,0deg);
+    }
+}
+@keyframes transform-animation {
+    0% {
+        transform: translate(0px);
+    }
+    10%{
+        transform: translate(-10px);
+    }
+    30%{
+        transform: translate(10px);
+    }
+    40%{
+        transform: translate(15px);
+    }
+    55% {
+        transform: translate(-10px);
+    }
+    100% {
+        transform: translate(0px);
+    }
+}
+@keyframes fading-animation {
+    0% {
+        opacity: 1;
+    }
+    55% {
+        opacity: 0.1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes light-rotate-animation {
+    0% {transform:rotate(5deg);}
+    25% {transform:rotate(10deg);}
+    85% {transform:rotate(-15deg);}
+    100% {transform:rotate(5deg);}
+}
+@keyframes perspective-rotate-animation {
+    0% {transform:rotateY(-30deg);}
+    25% {transform:rotateY(-25deg);}
+    75% {transform:rotateY(-35deg);}
+    100% {transform:rotateY(-30deg);}
+}
+@keyframes spin-animation {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+@keyframes pointing-animation {
+    0%    {margin-left:0px;}
+    25%   {margin-left:-15px;}
+    100%  {margin-left:0px;}
+}
+@keyframes beat-animation {
+    0%    {transform:scale(1);}
+    25%   {transform:scale(1.05);}
+    40%   {transform:scale(0.9);}
+    75%   {transform:scale(1.1);}
+    100%  {transform:scale(1);}
+}
+@keyframes slow-beat-animation {
+    0%    {transform:scale(1);}
+    25%   {transform:scale(1.02);}
+    40%   {transform:scale(0.95);}
+    75%   {transform:scale(1.05);}
+    100%  {transform:scale(1);}
+}
+@keyframes shake-animation {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+@keyframes shake-slow-animation {
+    5%, 45% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    10%, 40% {
+        transform: translate3d(2px, 0, 0);
+    }
+    15%, 25%, 35% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    20%, 30% {
+        transform: translate3d(4px, 0, 0);
+    }
+}

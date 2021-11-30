@@ -1,0 +1,45 @@
+#msg {
+    visibility: hidden;
+    color: red;
+    font-weight: bold;
+    font-size: 22px;
+    font-family: Verdana;
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    justify-content: center;
+}
+.audio-controls button {
+    margin: 0px 5px;
+}
+.btn-success.disabled, .btn-success:disabled
+{
+    background: #cccccc;
+    border: 1px solid #cccccc;
+}
+#recordCanvas {
+    margin-top: 10px;
+    background: rgb(143,88,255);
+    background: linear-gradient(76deg, rgba(143,88,255,1) 0%, rgba(89,255,236,1) 100%);
+    border-radius: 100%;
+    width: 250px;
+    height: 250px;
+    margin-left: 0;
+    margin-right: 0;
+    margin: auto;
+    display: flex;
+    box-shadow: 3px 3px 23px #abced6;
+    border: 8px solid white;
+}
+.app {
+    text-align: center;
+    padding-top: 20px;
+}
+
+
+#recordModal .modal-footer{
+    margin: auto;
+}

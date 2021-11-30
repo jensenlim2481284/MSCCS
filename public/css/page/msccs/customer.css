@@ -1,0 +1,268 @@
+
+.grid-box-item:hover .img-section img{
+    transform: rotate(360deg) scale(1.08);
+}
+.badge-register{
+    background-color: #f7bf51;
+    color: white;
+}
+.badge-purchased{
+    background-color: #5838e7;
+    color: white;
+}
+.badge-visit{
+    background-color: #40e07e;
+    color: white;
+}
+
+
+
+.credit-section{
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+    width: 100%;
+    height: 100%;
+    height: 250px;
+    background: url(/img/picture/box1.png);
+    border-radius: 35px;
+    box-shadow: 2px 2px 15px #3511c43d;
+    padding:8%;
+    position: relative;
+    margin-bottom: 8%;
+    color: white;
+    animation: slowbeat-animation 5s infinite;
+}
+.credit-section small{
+    font-size: 12px;
+    opacity: 1;
+    font-weight: 300;
+}
+@keyframes slowbeat-animation {
+    0%    {transform:scale(1);}
+    25%   {transform:scale(1.02);}
+    40%   {transform:scale(0.97);}
+    75%   {transform:scale(1.04);}
+    100%  {transform:scale(1);}
+}
+.credit-section button{
+    margin-bottom: 0;
+}
+.credit-section .left-section{
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+    font-weight: 700;
+}
+.credit-section img{
+    width: 100%;
+}
+.credit-section .left-section h1{
+    font-size: 15px;
+    margin:0;
+    font-weight: 300;
+}
+.withdraw-btn{
+    box-shadow: 2px 2px 0px #1a086a;
+}
+.topup-btn {
+    box-shadow: 2px 2px 0px #794706;
+}
+
+.title{
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+.history-item{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-top: 25px;
+    cursor: pointer;
+    transition: 0.4s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.history-icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background: white;
+    box-shadow: 2px 2px 5px #e1e1e1;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.history-icon img{
+    width: 60%;
+}
+
+.history-content h2{
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+.history-balance h2{
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.history-content p, .history-balance p{
+    font-weight: 300;
+    font-size: var(--small-font-size);
+    opacity: 0.7;
+    margin:0;
+}
+.history-content{
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.history-balance{
+    text-align: right;
+}
+.history-item:hover{
+    background: #ffffff;
+    padding: 15px 25px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px #dfdfdf;
+}
+.right-item{
+    margin-bottom: 50px;
+}
+
+.bank-account{
+    background: rgb(241,241,241);
+    background: radial-gradient(circle, rgba(241,241,241,1) 0%, rgba(233,233,233,1) 49%, rgba(245,245,245,1) 100%);
+    border-radius: 15px;
+    padding: 25px 5%;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 120px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.4s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+.bank-account .overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: 0.4s all;
+}
+.overlay button{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 5;
+    
+}
+.custom-item-box{
+    min-height: 300px;
+}
+.overlay .background{
+    background: rgba(0,0,0,0.2);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    border-radius: 15px;
+}
+.bank-account:hover .overlay{
+    opacity: 1;
+}
+
+.top-badge{
+    background: white;
+    color: #3511c4;
+    margin-bottom: 15px;
+}
+.bank-info{
+    margin-bottom: 20px;
+}
+.bank-info h2{
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.bank-info p{
+    margin: 0;
+    font-size: var(--paragraph-font-size);
+    font-weight: 400;
+    opacity: 0.8;
+}
+.bank-balance h2{
+    font-size: var(--header-font-size);
+    font-weight: 700;
+}
+.bank-balance h3{
+    font-size: 14px;
+    font-weight: 700;
+}
+.add-bank{
+    background: #f8f7ff;
+    border: 1px solid #ededed;
+    padding: 5%;
+    border-radius: 15px;
+}
+.add-bank h2{
+    font-size: var(--sub-header-font-size);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.add-bank .button-section{
+    margin: 0;
+    text-align: right;
+}
+
+#bankModal .modal-close-btn{
+    background-color: transparent !important;
+}
+
+.bank-account:hover{
+    transform: scale(1.03);
+}
+
+
+.header{
+    display: flex;
+    align-items: center;
+    padding-bottom: 80px;
+}
+
+.header h1{
+    margin:0;
+    font-size: 22px;
+    font-weight: 700;
+    padding-left: 25px;
+}
+
+
+.no-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.no-data img{
+    max-width: 150px;
+    margin: auto;
+}
+.no-data small{
+    opacity: 0.5;
+}
+.custom-item-box, .custom-item-box:hover{
+    box-shadow: none !important;
+}

@@ -1,0 +1,85 @@
+.donut-chart{
+    width:100%;
+    padding:10%;        
+    position: absolute;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.donut-center-text{
+    position: absolute;
+    top: calc(50% - 15px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 0;
+}
+.donut-center-text small{
+    font-size: 10px;
+    opacity: 0.5;
+}
+.donut-center-text p{
+    margin: 0 !important;
+    font-size: 24px;
+    font-weight: 800;
+    color: #2f0686;
+    opacity: 1;
+}
+.half-donut-chart{
+    width:100%;
+    position: absolute;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.half-donut-center-text{
+    position: absolute;
+    top: calc(50% + 15px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 0;
+}
+.half-donut-center-text small{
+    font-size: 10px;
+    opacity: 0.5;
+}
+.half-donut-center-text p{
+    margin: 0 !important;
+    font-size: 24px;
+    font-weight: 800;
+    color: #2f0686;
+    opacity: 1;
+}
+.text-bar-box{
+    justify-content: center;
+    align-items: center;    
+    display: flex;
+}
+.text-bar-box > .row{
+    align-items: center;
+    flex: 1;
+}
+.text-bar-content p{
+    font-size: 22px;
+    font-weight: 800;
+    color: black;
+    text-align: right;
+    opacity: 1;
+}
+.text-bar-content {
+    text-align: right;
+    padding-right: 5%;
+}
+.text-bar-content small{
+    font-size: 12px;
+    opacity: 0.5;
+}
+.line-chart-box{
+    width:90%;    
+    margin:auto;   
+    padding:15px;
+    height:100%;
+}
