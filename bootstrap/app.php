@@ -66,7 +66,7 @@ if (strpos($host, 'app.') !== false)
     $env = '.app.env';
 
 # MSCCS Portal
-if (strpos($host, 'msccs.msccs') !== false)
+if (strpos($host, 'dashboard.') !== false)
     $env = '.msccs.env';
 
 $app->loadEnvironmentFrom('env/'.$env); 

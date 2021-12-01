@@ -3,7 +3,7 @@
     <div class='table-icon'>
         {{ Form::open(array('method' =>'GET')) }}
         <div class="input-group simple-search-bar">
-        <input type="text" class="form-control" placeholder="Search ... "   name='query' maxlength="100">
+        <input type="text" class="form-control" placeholder="Search ... "  value="{{requestInput('query')}}" name='query' maxlength="100">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary"> <i class='ti ti-search'></i></button>
             </div>

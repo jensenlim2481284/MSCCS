@@ -71,3 +71,55 @@ function getCompany()
     if(Auth::check()) return Auth::user()->company;
     abort(404);
 }
+
+
+
+# Function to filter start date
+function getFilterStartDate($date)
+{
+    $startDate = date($date);
+    if (!$startDate)
+        $startDate = date("1000-01-01 00:00:00");
+    return $startDate;
+}
+
+
+# Function to filter end date
+function getFilterEndDate($date)
+{
+    $endDate =  date('Y-m-d', strtotime('+1 day', strtotime($date)));
+    if (!$date)
+        $endDate = date("9999-12-31 23:59:59");
+    return $endDate;
+}
+
+
+
+#  Function to format date
+function formatDate($date, $format ='Y-m-d')
+{
+    return \Carbon\Carbon::parse($date)->format($format);
+}
+
+
+# Function to calculate compound 
+function calculateCompound($positive, $neutral, $negative, $returnString = false)
+{
+    $norm =  ($positive - $negative) / 2;
+    $result = ($neutral)?$neutral+$norm:0.5+$norm;
+    if($result<0)$result = 0;
+    if($result>1)$result = 1;
+
+    # Return emoji string for statistic display
+    if($returnString){
+        $sentiment = 'ok';
+        if($result <= 0.2) $sentiment = 'angry';
+        if($result > 0.4) $sentiment = 'sad';
+        if($result > 0.6) $sentiment = 'ok';
+        if($result > 0.8) $sentiment = 'good';
+        if($result >= 1) $sentiment = 'happy';
+        return $sentiment;
+    }
+
+    return $result;
+}

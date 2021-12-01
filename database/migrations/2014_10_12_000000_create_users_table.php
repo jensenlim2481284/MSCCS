@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();                   
             $table->string('email')->nullable(); 
             $table->string('remark')->nullable(); 
-            $table->unsignedInteger('country')->nullable();                   
-            $table->unsignedInteger('language')->nullable();                   
+            $table->string('country')->nullable();                   
+            $table->string('language')->nullable();                   
             $table->unsignedInteger('role_id');              
             $table->unsignedInteger('company_id')->nullable();              
             $table->unsignedInteger('status')->default(getConfig('user.status.active'));

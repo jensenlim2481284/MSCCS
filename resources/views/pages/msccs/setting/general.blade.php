@@ -23,7 +23,7 @@
                     <thead class="thead-light">
                         <tr>                    
                             <th>Keyword</th>
-                            <th>Spot Rate</th>
+                            <th>Spot Count</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -32,7 +32,7 @@
                         @foreach($company->keyword as $index=>$key)
                             <tr>
                                 <td> {{$key->value}} </td>
-                                <td>{{$key->spot_rate}} </td>
+                                <td>{{$key->ticket->count()}} </td>
                                 <td>  <span class='badge badge-success'>Active</span> </td>
                                 <td>
                                     <div role="group">

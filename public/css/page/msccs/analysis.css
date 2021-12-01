@@ -1,0 +1,28 @@
+
+.emoji-section{
+    margin-top: 50px;
+    margin-left: -50px;
+    margin-bottom: 80px;
+}
+.emoji-section h2{
+    font-size: 32px;
+    font-weight: 800;
+    color: black;
+    opacity: 1;
+    display: block;
+    margin:0;
+    text-align: center;
+}
+.emoji-section p{
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+.emoji-section .feedback{
+    margin-top: 25px;
+    transform: scale(2);
+}
+.emoji-section >div{
+    width: 100%;
+    text-align: center;
+}

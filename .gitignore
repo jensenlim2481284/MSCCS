@@ -10,6 +10,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/env/.ecommerce.env
 /env/.website.env
+/env/.app.env
 /env/.msccs.env
+/env/googleCloudKey.json

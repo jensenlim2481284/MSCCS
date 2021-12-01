@@ -29,12 +29,11 @@
         <div class="dashboard-view-list">
             <div class='dashboard-list active'>
                 <div class='icon-box'>
-                    <i class='ti ti-money'></i>
+                    <i class='ti ti-heart'></i>
                 </div>
                 <div class='list-content referrar'>
-                    <p> Account Balance </p>
-                    <h2> 500.00 </h2> 
-                    <img src='/img/icon/coin.png'/>
+                    <p> Overall Sentiment Score </p>
+                    @include('component.emoji', ['emoji'=> $sentiment])                    
                 </div>
             </div>
 
@@ -43,52 +42,37 @@
                     <i class='ti ti-star'></i>
                 </div>
                 <div class='list-content'>
-                    <p> Total Earning </p>
-                    <h2> 5421.00 </h2> 
+                    <p> Total Call Record </p>
+                    <h2> {{$totalCall}} </h2> 
                 </div>
             </div>
             <div class='dashboard-list'>
                 <div class='icon-box'>
-                    <i class='ti ti-heart'></i>
+                    <i class='ti ti-face-smile'></i>
                 </div>
                 <div class='list-content'>
                     <p> Total Customer </p>
-                    <h2> 435 </h2> 
+                    <h2> {{$totalCustomer}} </h2> 
                 </div>
             </div>
         </div>
         <div class='activity-list'>
             <p class='list-title'>Recent Activity </p>
-            <div class='list-item'>
-                <div class='item-content'>
-                    <h2> Earning </h2>
-                    <p> 2021-11-14 15:45:20</p>
+            @foreach($recentActivity as $activity)
+                <div class='list-item'>
+                    <div class='item-content'>
+                        <h2> Call Record </h2>
+                        <p> {{$activity->created_at}} </p>
+                    </div>
+                    <div class='item-balance'>
+                        <span class='badge badge-{{$activity->status}}'>{{$activity->getStatus()}}</span>
+                    </div>
                 </div>
-                <div class='item-balance'>
-                    <span class='badge badge-positive'>+500</span>
-                </div>
-            </div>
-            <div class='list-item'>
-                <div class='item-content'>
-                    <h2> Withdrawal </h2>
-                    <p> 2021-11-14 16:45:20</p>
-                </div>
-                <div class='item-balance'>
-                    <span class='badge badge-negative'>-500</span>
-                </div>
-            </div>
-            <div class='list-item'>
-                <div class='item-content'>
-                    <h2> Withdrawal </h2>
-                    <p> 2021-11-14 17:45:20</p>
-                </div>
-                <div class='item-balance'>
-                    <span class='badge badge-negative'>-500</span>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
+
 
 @include('component.chart.setting')
 @include('component.chart.singleLine',[
@@ -98,7 +82,7 @@
     'bgEnd' =>'#FF8355',
     'lineStart' => '#3C39EA',
     'lineEnd' => '#FF6A32',
-    'data'=> [['label'=>'21/9/2021', 'value'=> 40],['label'=>'22/9/2021', 'value'=> 50],['label'=>'23/9/2021', 'value'=> 80],['label'=>'24/9/2021', 'value'=> 10]] 
+    'data'=> $monthlyData
 ])
 
 <script type="text/javascript" src="/js/page/msccs/dashboard.js{{ config('app.link_version') }}"></script>

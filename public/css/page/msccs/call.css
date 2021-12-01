@@ -1,0 +1,63 @@
+
+  .badge-1{
+    background: #edcc47;
+    color: white;
+  }
+
+  .badge-2{
+    background: #4ae382;
+    color: white;
+  }
+
+  .badge-3{
+    background: #df3333;
+    color: white;
+  }
+
+  .title-section{
+    text-align: center;
+  }
+  .title-section h3{
+    font-size: 30px !important;
+    font-weight: 800;
+  }
+  .title-section p{
+    font-size: 14px !important;
+    opacity: 0.8;
+  }
+
+  .title-icon{
+    font-size: 12px;
+    opacity: 0.5;
+    margin-bottom: 10px;
+  }
+  .grid-box-item .content-section p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .emoji-section{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    
+  }
+  .emoji-section h2{
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 5px;
+  }
+  .emoji-section p{
+    font-size: 12px;
+    opacity: 0.5;
+    margin-bottom: 35px;
+  }
+  .emoji-section .feedback{
+      transform: scale(2);
+      margin-left: 105px;
+  }
+  .feedback li{
+    margin-right: 5px !important;
+  }

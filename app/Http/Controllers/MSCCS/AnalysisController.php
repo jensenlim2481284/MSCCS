@@ -5,15 +5,16 @@ namespace App\Http\Controllers\MSCCS;
 use DB;
 use App\Models\User;
 use App\Models\Ticket;
+use App\Models\keyword;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+class AnalysisController extends Controller
 {
 
 
-    # Dashboard page 
+    # Analysis report page 
     public function index()
     {
 
@@ -21,8 +22,8 @@ class IndexController extends Controller
         $ticket = Ticket::where('company_id', getCompany()->id);
         $totalCall = (clone $ticket)->count();
         $totalCustomer = User::where('company_id', getCompany()->id)->where('role_id', getConfig('role.customer'))->count();
-
-        # Get sentiment score 
+ 
+        # Get Sentiment Compound 
         $completedTicket = (clone $ticket)->where('status', getConfig('ticket.status.completed'))->get();
         $neutral = $positive = $negative = 0;
         foreach($completedTicket as $record){
@@ -34,27 +35,21 @@ class IndexController extends Controller
         }
         $count = $completedTicket->count();        
         $sentiment = calculateCompound($positive/$count, $neutral/$count , $negative/$count, true);  
-
-        # Get call vs date 
+        $sentimentScore = calculateCompound($positive/$count, $neutral/$count , $negative/$count) * 100;  
+        
+        # Get Call chart 
         $monthlyData = [];
         $monthlyRecord =  (clone $ticket)->select(DB::raw("DATE_FORMAT(created_at, '%d/%m/%Y') new_date"), DB::raw('DAY(created_at) day'),DB::raw('count(*) as total'))->orderBy('new_date')->groupBy('day')->groupBy('new_date')->take(10)->get();            
         foreach($monthlyRecord as $record)        
             $monthlyData[] = ['label'=>$record->new_date, 'value' => $record->total ];
+      
+        # Get Keyword chart 
+        $keywordData = [];
+        $keywords = Keyword::where('company_id', getCompany()->id)->get();
+        foreach($keywords as $keyword)
+            $keywordData[] = ['label' => $keyword->value, 'value' => $keyword->ticket->count()];
 
-        # Get recent activity
-        $recentActivity = (clone $ticket)->orderBy('created_at', 'DESC')->take(5)->get();
-       
-        return view('pages.msccs.dashboard', compact('totalCall', 'totalCustomer', 'monthlyData', 'recentActivity', 'sentiment'));
+        return view('pages.msccs.analysis', compact('ticket', 'sentiment', 'sentimentScore', 'monthlyData', 'totalCustomer', 'totalCall', 'positive', 'neutral', 'negative', 'count', 'keywordData'));
     }
-
-
-
-    # logout function     
-    public function logout()
-    {
-        \Auth::logout();
-        return redirect('/');
-    }
-
 
 }

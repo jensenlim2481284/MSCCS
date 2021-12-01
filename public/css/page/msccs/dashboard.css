@@ -460,3 +460,19 @@ Announcement  & CTA
     background: white;
     color: #e33939;
 }
+
+
+  .badge-1{
+    background: #edcc47;
+    color: white;
+  }
+
+  .badge-2{
+    background: #4ae382;
+    color: white;
+  }
+
+  .badge-3{
+    background: #df3333;
+    color: white;
+  }

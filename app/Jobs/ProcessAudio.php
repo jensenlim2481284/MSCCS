@@ -31,6 +31,7 @@ class ProcessAudio implements ShouldQueue
 
         # Variable initial
         $ticket = $this->ticket;
+        $companyID = $ticket->company_id;
         $stageList = getConfig('ticket.stage');
         $audio = 'data:audio/wav;base64,' . base64_encode(file_get_contents($ticket->audio_path));
         
@@ -99,7 +100,7 @@ class ProcessAudio implements ShouldQueue
 
                         # Retrieve keyword 
                         $results = (array)$result->results->{"my-input"}->{"results.json"};
-                        $keywordEloquent = Keyword::where('company_id', getCompany()->id);
+                        $keywordEloquent = Keyword::where('company_id', $companyID);
                         $keywordList = (clone $keywordEloquent)->pluck('value')->toArray();
                         foreach($results as $result){
 
@@ -145,7 +146,7 @@ class ProcessAudio implements ShouldQueue
 
                     # Process Audio keyword spotting
                     $checkProcess = true;
-                    $spotting = json_decode(Modzy::audioKeywordSpotting($audio));
+                    $spotting = json_decode(Modzy::audioKeywordSpotting($audio, $companyID));
                     $checkProcess = ($spotting->status  == "SUBMITTED");
 
                     # Translate to english 
@@ -177,31 +178,68 @@ class ProcessAudio implements ShouldQueue
                 if($ticket->getMeta('stage') == $stageList['audio_post_processed'])
                 {  
 
-                    # Get named entity result
-                    $entityResult = json_decode(Modzy::getResult($ticket->getMeta('entityJobID')));
-                    if($entityResult->finished){
+                    # Get sentiment job result & check if sentiment job finished ( longest job in the post audio process )
+                    $sentimentResult = json_decode(Modzy::getResult($ticket->getMeta('sentimentJobID')));
+                    dd($sentimentResult);
+                    if($sentimentResult->finished){
+
+
+                        # Update sentiment result to ticket 
+                        $ticket->updateMeta('sentiment', (array)$sentimentResult->results->{"my-input"}->{"results.json"}->data->result->classPredictions);
+
+
+                        # Get Entity job result 
+                        $entityResult = json_decode(Modzy::getResult($ticket->getMeta('entityJobID')));
 
                         # Check entity and create customer record - if person name and location name found
-                        dd($entityResult);                     
-                        $ticket->update(['transcript'=> $entityResult->results->{"my-input"}->{"results.json"}->text]);
+                        $entityArr = (array)$entityResult->results->{"my-input"}->{"results.json"};
+                        $name = null; $country = null;
+                        foreach($entityArr as $arr){
+                            switch($arr[1]){
+                                case "B-PER" : $name = $arr[0];
+                                case "I-PER" : $name .= ' ' . $arr[0];
+                                case "B-LOC" : $country = $arr[0];
+                                case "I-LOC" : $country .= ' '. $arr[0];
+                            }
+                        }      
 
-                        # Get text modeling job result 
-                        $modelResult = json_decode(Modzy::getResult($ticket->getMeta('modelingJobID')));
+                        # If name detected - create customer record
+                        if($name)              
+                        {
+                            $customer = User::create([
+                                'role_id' => getConfig('role.customer'),
+                                'company_id' => $companyID,
+                                'name' => $name,
+                                'country' => $country,
+                                'language' => getConfig('ticket.language_text')[$ticket->language]
+                            ]);
+                            $ticket->update(['customer_id' => $customer->id]);
+                        }
 
                         # Get summarization job result 
                         $summarizationResult = json_decode(Modzy::getResult($ticket->getMeta('summarizationJobID')));
 
-                        # Get sentiment job result 
-                        $sentimentResult = json_decode(Modzy::getResult($ticket->getMeta('sentimentJobID')));
+                        # Get summarization result and Update ticket description 
+                        $ticket->update(['description' => $summarizationResult->results->{"my-input"}->{"results.json"}->summary]);
+                        
+                        # Get text modeling job result 
+                        $modelResult = json_decode(Modzy::getResult($ticket->getMeta('modelingJobID')));
+                        $modelArr = (array)$modelResult->results->{"my-input"}->{"results.json"};
 
-                  
+                        # Get top 3 topic and update ticket title for document classification
+                        $title = $modelArr[0] . ' | ' . $modelArr[1] . ' | ' . $modelArr[2];
+                        $ticket->update(['title' => $title]);
+                   
+                        # Mark audio processing as completed 
                         $ticket->update(['status' => getConfig('ticket.status.completed')]);
+
+                        return true;
 
                     }
                     else {
 
-                        # Wait 3 second and check again 
-                        sleep(3);
+                        # Wait 5 second and check again 
+                        sleep(5);
                         ProcessAudio::dispatch($stageList['audio_post_process'], $ticket);
 
                     }

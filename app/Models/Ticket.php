@@ -25,6 +25,24 @@ class Ticket extends Model
     }
 
 
+    # Function to get ticket status 
+    public function getStatus(){
+        return getConfig('ticket.status_text')[$this->status];
+    }
+
+
+    # Function to get audio path
+    public function getAudioPath(){
+        $path =explode('\\',  $this->audio_path);
+        return '/storage/'. end($path);
+    }
+
+
+    # Function to check if audio is completed
+    public function isCompleted(){
+        return $this->status == getConfig('ticket.status.completed');
+    }
+
 
     
     /*************************************************
@@ -46,7 +64,7 @@ class Ticket extends Model
     # Relation to access customer
     public function customer()
     {
-        return $this->belongsTo('App\Models\Customer','customer_id','id');
+        return $this->belongsTo('App\Models\User','customer_id','id');
     }
 
     

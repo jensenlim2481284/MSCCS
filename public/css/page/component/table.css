@@ -374,6 +374,7 @@ th {
 .menu-tooltip {
     width: 40px;
     height: 40px;
+    padding-top: 10px;
     border-radius: 100%;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }

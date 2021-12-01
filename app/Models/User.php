@@ -41,7 +41,7 @@ class User extends Authenticatable
     # Function to access call audio
     public function call()
     {
-        return $this->hasMany('App\Models\Ticket','id','customer_id');
+        return $this->hasMany('App\Models\Ticket','customer_id','id');
     }
 
 

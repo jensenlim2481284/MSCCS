@@ -85,11 +85,11 @@ class Modzy
 
 
     # API to proceed  Audio keyword spotting
-	public static function audioKeywordSpotting($audio) 
+	public static function audioKeywordSpotting($audio, $companyID) 
 	{		
 
         # Get keyword list 
-        $keywordList = Keyword::where('company_id', getCompany()->id)->pluck('value')->toArray();
+        $keywordList = Keyword::where('company_id', $companyID)->pluck('value')->toArray();
         $keyword = 'data:text/plain;base64,' . base64_encode(implode('\n',$keywordList));
 
         return self::curlPostRequest('jobs', [
