@@ -8,8 +8,8 @@ MSCCS is an AI solution for call center audio processing - Revamping call center
 
 #### Table of Content
 
-- [ Installation Guideline ](#installation)
-- [ Project Features and Description ](#usp)
+- [ Code Structure ](#installation)
+- [ Features and Description ](#usp)
 - [ Demo Link ](#demo)
 
 
@@ -18,7 +18,15 @@ MSCCS is an AI solution for call center audio processing - Revamping call center
 
 &nbsp;&nbsp;
 <a name="installation"></a>
-### Features
+### Project Code Structure Overview
+
+Since the project is built with Laravel framework, most of the code structure explanation can refer to the Laravel documentation. I will only highlight important code files and folders.
+
+- app/Jobs/ProcessAudio : This is the main core file for asynchronously processing the post-call data. Which using dynamic job technique and split the job process into multiple stage to avoid timeout issues.
+- app/Services/Modzy : This is the main service file that process all the Modzy AI queries with CURL.
+- bootstrap/app : This is the main file that select the env file based on the domain name.
+- config/system : This folder contain all the system configuration variable.
+
 
 
 &nbsp;&nbsp;
