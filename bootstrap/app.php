@@ -59,7 +59,7 @@ $app->singleton(
 $host = '';
 $env = '.website.env';
 if (isset($_SERVER['HTTP_HOST'])) 
-    $host = $_SERVER['HTTP_HOST'];
+    $host = $_SERVER['HTTP_HOST'];    
 
 # App Portal
 if (strpos($host, 'app.') !== false)

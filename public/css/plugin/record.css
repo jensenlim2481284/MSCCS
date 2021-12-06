@@ -17,7 +17,7 @@
 }
 .btn-success.disabled, .btn-success:disabled
 {
-    background: #cccccc;
+    background: #afafaf;
     border: 1px solid #cccccc;
 }
 #recordCanvas {

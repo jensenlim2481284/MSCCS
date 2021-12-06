@@ -45,7 +45,10 @@ class CustomerController extends Controller
     {
         # Retrieve customer record - check & validate permission 
         $customer = User::whereUID($uid);
-        if(!$customer && ($customer->company_id !=  getCompany()->id)) abort(404);
+        if(!$customer && ($customer->company_id !=  getCompany()->id) && $customer->role_id != getConfig('role.customer')) abort(404);
+
+        # Check if got call data
+        if($customer->call->count() <= 0) return redirect('/customer')->with('err', 'No call data');
 
         # Get statistic data 
         $ticket = Ticket::where('customer_id', $customer->id);
@@ -62,7 +65,7 @@ class CustomerController extends Controller
         $neutral = $positive = $negative = 0;
         foreach($completedTicket as $record){
             $sentiment = (array)$record->getMeta('sentiment');
-            asort($sentiment);
+            sort($sentiment);
             $negative += $sentiment[0]->score;    
             $neutral += $sentiment[1]->score;    
             $positive += $sentiment[2]->score;    
@@ -140,9 +143,11 @@ class CustomerController extends Controller
         if(!$customer && ($customer->company_id !=  $companyID)) abort(404);
 
         # Loop ticket and bind to customer 
-        foreach($request->bind as $uid){            
-            $ticket = Ticket::where('uid', $uid)->where('company_id', $companyID)->first();
-            $ticket->update(['customer_id' => $customer->id]);
+        if($request->bind){
+            foreach($request->bind as $uid){            
+                $ticket = Ticket::where('uid', $uid)->where('company_id', $companyID)->first();
+                $ticket->update(['customer_id' => $customer->id]);
+            }
         }
 
         # Loop current record to remove unbind record

@@ -28,7 +28,7 @@
                 <canvas id="halfDonutChart" class='half-donut-chart'></canvas>   
                 <div class='half-donut-center-text'>
                     <small>Satisfaction Rate</small>
-                    <p>{{$sentimentScore}} %</p>
+                    <p>{{filterNumber($sentimentScore)}} %</p>
                 </div>
             </div>           
         </div>
@@ -119,7 +119,7 @@
     'isHalf' => true,
     'data'=> [
         ['title'=> 'Sentiment', 'value' => $sentimentScore  , 'tooltips' => $sentimentScore, 'color' => '#FF7F36', 'hover' => '#EE6D24','no_legend'=>true],
-        ['title'=> 'Overall', 'value' => '100', 'tooltips' =>  '100', 'color' => '#E9E9E9', 'hover' => '#DFDFDF', 'no_legend'=>true],      
+        ['title'=> 'Overall', 'value' => 100 - $sentimentScore, 'tooltips' =>  100 - $sentimentScore, 'color' => '#E9E9E9', 'hover' => '#DFDFDF', 'no_legend'=>true],      
     ]  
 ])
 
@@ -134,14 +134,13 @@
 ])
 
 
-
 @include('component.chart.horizontalBar',[
     'id'=>'textBarChart',
     'customTooltips'=>true,
     'data'=> [
-        ['title'=> 'Negative', 'value' => $negative, 'tooltips'=> ($negative/$count*100).'%', 'color' => randColorCode() ],    
-        ['title'=> 'Neutral', 'value' => $neutral, 'tooltips'=> ($neutral/$count*100) .'%', 'color' => randColorCode() ],    
-        ['title'=> 'Positive', 'value' => $positive, 'tooltips'=> ($positive/$count*100).'%', 'color' => randColorCode() ],    
+        ['title'=> 'Negative', 'value' => $negative, 'tooltips'=> (filterNumber($negative/$count*100)).'%', 'color' => randColorCode() ],    
+        ['title'=> 'Neutral', 'value' => $neutral, 'tooltips'=> (filterNumber($neutral/$count*100)) .'%', 'color' => randColorCode() ],    
+        ['title'=> 'Positive', 'value' => $positive, 'tooltips'=> (filterNumber($positive/$count*100)).'%', 'color' => randColorCode() ],    
     ]
 ])
 

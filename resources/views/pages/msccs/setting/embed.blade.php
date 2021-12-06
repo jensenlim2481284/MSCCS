@@ -27,7 +27,7 @@
                         </div>
                         <div class='col-7'>
                             <h2> Smart Recording </h2>
-                            <p>Embed smart recording function into your existing application and let Modzy process audio data with Artificiate Inteliigent </p>
+                            <p>Embed smart recording function into your existing application and let Modzy process audio data with Modzy Artificiate Inteliigent </p>
                             <button class='btn btn-default mt-3' data-toggle="modal" data-target="#embedRecording"> Embed Now </button>
                         </div>
                     </div>

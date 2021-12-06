@@ -21,6 +21,17 @@ return [
         'audio_peri_processed'          =>  4,
         'audio_post_process'            =>  5,
         'audio_post_processed'          =>  6,
+        'completed'                     =>  7,
+    ],
+
+    'stage_text' => [
+        1 => 'Detecting audio language',
+        2 => 'Processing audio transcript',
+        3 => 'Spotting keyword and translating',
+        4 => 'Generating audio topic and summarization',
+        5 => 'Creating ticket and customer record',
+        6 => 'Analysing sentiment and name entity',
+        7 => 'Call data processed',
     ],
 
     'language_code' => [

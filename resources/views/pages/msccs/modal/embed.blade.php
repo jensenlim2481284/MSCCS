@@ -6,7 +6,11 @@
                     <h4 class="modal-title">  Embed Smart Recording </h4>
                 </div>
                 <div class="modal-body row">
-                    <div class='col-sm-12 form-group '>       
+                   
+                    <div class='col-sm-12 form-group '>  
+                        <div class="alert alert-danger" role="alert">
+                            Embeded domain must have SSL certificate. For example https://... 
+                        </div>     
                         <textarea rows="6" class='form-control' id="recordCode" readonly><iframe  frameBorder="0" allow="microphone" type="text/html" src="{{env('APP_URL')}}/embed/recording?token={{simpleEncryption(getCompany()->uid)}}&access={{simpleEncryption(Auth::user()->uid)}}" width="800" height="500"></textarea>
                     </div>
                 </div>

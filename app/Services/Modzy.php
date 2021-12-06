@@ -14,7 +14,7 @@ class Modzy
 {
 
     # Function to initial CURL
-	protected static function curlInit()
+	public static function curlInit()
 	{
 
 		$ch = curl_init();
@@ -227,7 +227,7 @@ class Modzy
             ->setLanguageCode($languageCode);
 
         # Initial Client
-        $client = new SpeechClient(['credentials' => json_decode(file_get_contents('C:\laragon\www\MSCCS\storage\googleCloudKey.json'), true)]);
+        $client = new SpeechClient(['credentials' => json_decode(file_get_contents('/var/www/html/modzy/env/googleCloudKey.json'), true)]);
 
         # Proceed Transcript
         $operation = $client->longRunningRecognize($config, $audio);

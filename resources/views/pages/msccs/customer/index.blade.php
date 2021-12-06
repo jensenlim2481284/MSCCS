@@ -39,11 +39,13 @@
                     </button>
                     <div class="tooltip_templates">
                         <span id="tooltip_menu{{$index}}" class='tooltip_menus'>
+                            @if($customer->call->count()>0)
                             <a href='/customer/{{$customer->uid}}'>
                                 <button  class='btn btn-default' >
                                     <i class='ti-bar-chart'></i> Analysis Overview
                                 </button>        
                             </a>
+                            @endif
                             <button class='btn btn-default edit-customer' data-toggle="modal" data-target="#addModal" data-value="{{$customer}}" >
                                 <i class='ti-pencil-alt'></i>
                                 <span>Edit</span>
@@ -65,10 +67,10 @@
                 <div class='img-section'> <img src='/img/icon/customer.png'/> </div>
                 <div class='content-section'>
                     <span class='badge badge-primary'>{{$customer->call->count()}} Call</span>
-                    <h1> {{$customer->name}} </h1>
+                    <h1> {{$customer->name??'-'}} </h1>
                     <div class='detail d-flex justify-content-around align-items-center mt-5'>
-                        <p> <i class='ti ti-world'></i> {{$customer->language}} </p>
-                        <p> <i class='ti ti-location-pin'></i> {{$customer->country}}  </p>
+                        <p> <i class='ti ti-world'></i> {{$customer->language??' -'}} </p>
+                        <p> <i class='ti ti-location-pin'></i> {{$customer->country??' -'}}  </p>
                         <p> <i class='ti ti-timer'></i> {{formatDate($customer->created_at)}} </p>
                     </div>
                 </div>

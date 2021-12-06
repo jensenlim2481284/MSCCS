@@ -107,8 +107,8 @@
     'id'=>'halfDonutChart',
     'isHalf' => true,
     'data'=> [
-        ['title'=> 'Beauty', 'value' => '13'  , 'tooltips' => '13', 'color' => '#FF7F36', 'hover' => '#EE6D24'],
-        ['title'=> 'Overall', 'value' => '100', 'tooltips' =>  '100', 'color' => '#E9E9E9', 'hover' => '#DFDFDF'],      
+        ['title'=> 'Sentiment', 'value' => '13'  , 'tooltips' => '13', 'color' => '#FF7F36', 'hover' => '#EE6D24'],
+        ['title'=> 'Overall', 'value' => '100', 'tooltips' =>  '100', 'color' => '#E9E9E9', 'hover' => '#DFDFDF', 'no_legend'=>true],      
     ]  
 ])
 
@@ -117,7 +117,7 @@
 @include('component.chart.donut',[
     'id'=>'halfDonutChart2',    
     'data'=> [
-        ['title'=> 'Beauty', 'value' => '4'  , 'tooltips' => '4', 'color' => '#FF7F36', 'hover' => '#EE6D24'],
+        ['title'=> 'Sentiment', 'value' => '4'  , 'tooltips' => '4', 'color' => '#FF7F36', 'hover' => '#EE6D24'],
         ['title'=> 'Overall', 'value' => '96', 'tooltips' =>  '96', 'color' => '#E9E9E9', 'hover' => '#DFDFDF'],      
     ]  
 ])

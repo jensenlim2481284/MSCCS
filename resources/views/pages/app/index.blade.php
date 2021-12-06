@@ -9,6 +9,8 @@
       <link rel="manifest" href="/manifest.json">
       <title>Dashboard | Modzy</title>
       <link href="/css/page/app/index.css" rel="stylesheet">
+      <script type="text/javascript" src="/js/prod/website/index.min.js{{ config('app.link_version') }}"></script>
+      <style>.swal-text{text-align:center !important;}</style>
    </head>
    <body>
       <div id="root">
@@ -545,3 +547,12 @@
             </div>
          </div>
       </div>     
+
+      <script>
+
+        $(document).ready(function(){
+            swal('Mockup Modzy UI','This is a mockup Modzy dashboard page from https://app.modzy.com for the deployment demonstration purposes. As you can see there is one App Gallery tab on top of the navbar. This is what I think of the deployment plan. Click on the App Gallery to view list of featured App.','info');
+        })
+
+
+        </script>

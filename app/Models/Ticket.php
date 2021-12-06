@@ -25,6 +25,18 @@ class Ticket extends Model
     }
 
 
+    # Function to get ticket stage percent
+    public function getStagePercent(){
+        return filterNumber($this->getMeta('stage')/7 *100);
+    }
+
+
+    # Function to get ticket stage name
+    public function getStage(){
+        return getConfig('ticket.stage_text')[$this->getMeta('stage')??1];
+    }
+
+
     # Function to get ticket status 
     public function getStatus(){
         return getConfig('ticket.status_text')[$this->status];
@@ -33,7 +45,7 @@ class Ticket extends Model
 
     # Function to get audio path
     public function getAudioPath(){
-        $path =explode('\\',  $this->audio_path);
+        $path =explode('/',  $this->audio_path);
         return '/storage/'. end($path);
     }
 

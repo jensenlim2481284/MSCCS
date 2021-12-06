@@ -94,6 +94,13 @@ function getFilterEndDate($date)
 }
 
 
+# Function to filter decimal mouney 
+function filterNumber($num)
+{
+    return number_format(floatval($num), 2, '.', ',');
+}
+
+
 
 #  Function to format date
 function formatDate($date, $format ='Y-m-d')
@@ -105,21 +112,29 @@ function formatDate($date, $format ='Y-m-d')
 # Function to calculate compound 
 function calculateCompound($positive, $neutral, $negative, $returnString = false)
 {
+    
     $norm =  ($positive - $negative) / 2;
-    $result = ($neutral)?$neutral+$norm:0.5+$norm;
+    if($neutral)
+    {        
+        if($neutral>=0.5) $result = $neutral+$norm;
+        else $result = 0.5 - ($neutral/2) + $norm;
+    }
+    else 
+        $result = 0.5+$norm;
+
     if($result<0)$result = 0;
     if($result>1)$result = 1;
 
     # Return emoji string for statistic display
     if($returnString){
         $sentiment = 'ok';
-        if($result <= 0.2) $sentiment = 'angry';
-        if($result > 0.4) $sentiment = 'sad';
-        if($result > 0.6) $sentiment = 'ok';
-        if($result > 0.8) $sentiment = 'good';
-        if($result >= 1) $sentiment = 'happy';
+        if($result <= 0.15) $sentiment = 'angry';
+        if($result > 0.3) $sentiment = 'sad';
+        if($result > 0.45) $sentiment = 'ok';
+        if($result > 0.6) $sentiment = 'good';
+        if($result >= 0.75) $sentiment = 'happy';
         return $sentiment;
     }
 
-    return $result;
+    return filterNumber($result);
 }

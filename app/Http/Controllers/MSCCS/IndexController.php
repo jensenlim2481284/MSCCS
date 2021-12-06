@@ -27,13 +27,13 @@ class IndexController extends Controller
         $neutral = $positive = $negative = 0;
         foreach($completedTicket as $record){
             $sentiment = (array)$record->getMeta('sentiment');
-            asort($sentiment);
+            sort($sentiment);
             $negative += $sentiment[0]->score;    
             $neutral += $sentiment[1]->score;    
             $positive += $sentiment[2]->score;    
         }
         $count = $completedTicket->count();        
-        $sentiment = calculateCompound($positive/$count, $neutral/$count , $negative/$count, true);  
+        $sentiment = ($count > 0 )?calculateCompound($positive/$count, $neutral/$count , $negative/$count, true):'ok';  
 
         # Get call vs date 
         $monthlyData = [];

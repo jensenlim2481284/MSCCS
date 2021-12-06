@@ -20,7 +20,7 @@ class CompanyObserver
     {
 
         # Update company default keyword setting 
-        foreach(['Happy','Angry','Satisfy','Sad', 'Bad'] as $key){
+        foreach(['Good'] as $key){
             Keyword::create([
                 'company_id' => $company->id,
                 'value' =>$key

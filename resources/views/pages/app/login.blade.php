@@ -9,6 +9,8 @@
       <link rel="manifest" href="/manifest.json">
       <title>Sign in to Modzy | Modzy</title>
       <link href="/css/page/app/index.css" rel="stylesheet">
+      <script type="text/javascript" src="/js/prod/website/index.min.js{{ config('app.link_version') }}"></script>
+      <style>.swal-text{text-align:center !important;}</style>
    </head>
    <body>
       <div id="root">
@@ -71,4 +73,12 @@
          <div data-toaster="true"></div>
       </div>
    </body>
+   <script>
+
+    $(document).ready(function(){
+        swal('Mockup Login','This is a mockup login page from https://app.modzy.com/login for the deployment demonstration purposes. ','info');
+    })
+
+
+    </script>
 </html>

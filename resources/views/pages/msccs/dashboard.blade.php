@@ -16,12 +16,16 @@
             <h1>Revamping Call Center with Modzy </h1>
             <p>Let's utilize call data to automated post-call processes, enhance customer experience and to grow your business. </p>
             <button type='button' class='btn btn-default'  data-toggle="modal" data-target="#ticketModal"> Record Call </button>
-            <button class='btn btn-primary under-development' data-title='Onboarding Checklist' data-desc='This feature will guide merchants how to set up their online store step by step.'> Analysis </button>
+            <a href='/analysis'><button class='btn btn-primary under-development' data-title='Onboarding Checklist' data-desc='This feature will guide merchants how to set up their online store step by step.'> Analysis </button></a>
             <img src='/img/picture/refland3.gif'/>
         </div>
         <div id="overviewChart">
-            <h2> Revenue Overview </h2>
+            <h2> Call Statistic </h2>
+            @if($totalCall<=0)
+                <small> No call data yet - Record call now to view your call statistic. </small>
+            @endif
             <canvas id="lineChart" class='line-chart' style="height:200px; max-height:200px" > </canvas>   
+           
         </div>
     </div>
     <div class='col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1'></div>
@@ -32,7 +36,7 @@
                     <i class='ti ti-heart'></i>
                 </div>
                 <div class='list-content referrar'>
-                    <p> Overall Sentiment Score </p>
+                    <p> Overall Sentiment Level </p>
                     @include('component.emoji', ['emoji'=> $sentiment])                    
                 </div>
             </div>
@@ -58,17 +62,21 @@
         </div>
         <div class='activity-list'>
             <p class='list-title'>Recent Activity </p>
-            @foreach($recentActivity as $activity)
-                <div class='list-item'>
-                    <div class='item-content'>
-                        <h2> Call Record </h2>
-                        <p> {{$activity->created_at}} </p>
+            @if($recentActivity->count()>0)
+                @foreach($recentActivity as $activity)
+                    <div class='list-item'>
+                        <div class='item-content'>
+                            <h2> Call Record </h2>
+                            <p> {{$activity->created_at}} </p>
+                        </div>
+                        <div class='item-balance'>
+                            <span class='badge badge-{{$activity->status}}'>{{$activity->getStatus()}}</span>
+                        </div>
                     </div>
-                    <div class='item-balance'>
-                        <span class='badge badge-{{$activity->status}}'>{{$activity->getStatus()}}</span>
-                    </div>
-                </div>
-            @endforeach
+                @endforeach
+            @else 
+                <small> No recent activity yet. </small>
+            @endif
         </div>
     </div>
 </div>

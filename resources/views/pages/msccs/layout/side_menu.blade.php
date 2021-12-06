@@ -1,7 +1,7 @@
 <nav id="sidebar" >
     <div id='main-menu'>
         <div class='logo-section'>
-            <img src='/img/logo/logo.png' />
+            <a href='/'><img src='/img/logo/logo.png' /></a>
         </div>
         <ul class="list-unstyled components mb-5">
             <li class="{{isNavActive(['index'])?'active':''}}">

@@ -46,8 +46,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body row">
-                <div class='col-12 form-group text-left'>
+                <div class='col-12 form-group text-center'>
                     <canvas id="recordCanvas" width="200" height="300" class='slow-beat-animation'></canvas>
+                    <div class='mt-3'><small> Recording ... </small></div>
                 </div>  
                 <div class='col-12 form-group text-left mt-4'>
                     <p> Audio Input </p>

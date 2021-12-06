@@ -17,10 +17,17 @@ $(document).ready(function(){
                 backdrop: 'static',
                 keyboard: false
             })
-            $('.end-record').prop('disabled', true).html('Minimum 10 Seconds');
+            $('.end-record').prop('disabled', true).html('Recording ... Minimum 10 Seconds');
             setTimeout(() => {
                 $('.end-record').prop('disabled', false).html('End Session');
             }, 10000);
+            setTimeout(() => {
+                swal('Oooops','Due to the limitation of low-cost servers, the maximum recording time is 30 seconds','info')
+                    .then((value) => {
+                        $('.end-record').click();
+                });
+            
+            }, 30000);
             start();
         })  
 
@@ -250,12 +257,13 @@ $(document).ready(function(){
                 data: formdata,
                 dataType: 'JSON',
                 success: function (data) { 
+                    $("#recordModal").modal('hide');
+                    swal('Call Record Created','System will take about 5 minutes to process the audio data. Find out more at call center page.','success')
+                    .then((value) => {
+                        document.location.href = "/call";
+                    });
                 }
             }); 
-
-            $("#recordModal").modal('hide');
-            swal('Call Record Created','System will take about 5 minutes to process the audio data.','success');
-            
 
         }
 

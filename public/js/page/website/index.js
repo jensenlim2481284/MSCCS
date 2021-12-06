@@ -308,7 +308,7 @@ setTimeout(() => {
 }, 800);
 
 setTimeout(() => {
-  const text = new AnimatedText('Revamping Call Center with Artificial Intellegence', fontAsset, 0.125);
+  const text = new AnimatedText('Revamping Call Center with Modzy Artificial Intellegence', fontAsset, 0.125);
   text.position.x -= text.basePosition * 0.5;
   text.position.y -= 0.8;
   webgl.add(text);

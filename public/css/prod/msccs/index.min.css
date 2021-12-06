@@ -4626,7 +4626,7 @@ iframe.scrolling {
 }
 .custom-progressbar-text {
     float: right;
-    font-size: 8px !important;
+    font-size: 10px !important;
     font-weight: 500 !important;
     opacity: 0.5 !important;
     padding-top: 0px;

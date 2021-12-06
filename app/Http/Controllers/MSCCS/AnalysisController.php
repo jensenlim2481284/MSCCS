@@ -5,7 +5,7 @@ namespace App\Http\Controllers\MSCCS;
 use DB;
 use App\Models\User;
 use App\Models\Ticket;
-use App\Models\keyword;
+use App\Models\Keyword;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,15 +27,16 @@ class AnalysisController extends Controller
         $completedTicket = (clone $ticket)->where('status', getConfig('ticket.status.completed'))->get();
         $neutral = $positive = $negative = 0;
         foreach($completedTicket as $record){
-            $sentiment = (array)$record->getMeta('sentiment');
-            asort($sentiment);
+            $sentiment = (array)$record->getMeta('sentiment');   
+            sort($sentiment);
             $negative += $sentiment[0]->score;    
             $neutral += $sentiment[1]->score;    
             $positive += $sentiment[2]->score;    
         }
         $count = $completedTicket->count();        
-        $sentiment = calculateCompound($positive/$count, $neutral/$count , $negative/$count, true);  
-        $sentimentScore = calculateCompound($positive/$count, $neutral/$count , $negative/$count) * 100;  
+        $sentiment = ($count>0)?calculateCompound($positive/$count, $neutral/$count , $negative/$count, true):"ok";  
+        $sentimentScore = ($count>0)?(calculateCompound($positive/$count, $neutral/$count , $negative/$count) * 100):50;  
+        if($count <=0 ) $count = 1;
         
         # Get Call chart 
         $monthlyData = [];

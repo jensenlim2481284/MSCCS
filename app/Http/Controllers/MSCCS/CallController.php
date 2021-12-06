@@ -20,6 +20,10 @@ class CallController extends Controller
     public function index(Request $request)
     {
 
+        // $ticket = Ticket::first();
+        // ProcessAudio::dispatch(5, $ticket);
+        // dd(1);
+
         # 0 : Filter record		
         $records = Ticket::where('company_id', getCompany()->id);     
         $startDate = getFilterStartDate($request->startDate);
@@ -48,7 +52,7 @@ class CallController extends Controller
         
         # Get Sentiment Compound 
         $sentiment = $ticket->getMeta('sentiment');
-        asort($sentiment);
+        sort($sentiment);
         $negative = $sentiment[0]->score;    
         $neutral = $sentiment[1]->score;    
         $positive = $sentiment[2]->score;        
@@ -78,11 +82,13 @@ class CallController extends Controller
             'company_id' => getCompany()->id,
             'audio_path'=> $path
         ]);   
+        $ticket->updateMeta('stage', getConfig('ticket.stage.audio_pre_process'));
 
         # 3 : Process audio 
         ProcessAudio::dispatch(getConfig('ticket.stage.audio_pre_process'), $ticket);
 
 
+        return back()->with('success',  'Call record uploaded');
     }
 
 
@@ -105,10 +111,11 @@ class CallController extends Controller
             'company_id' => $company->id,
             'audio_path'=> $path
         ]);   
+        $ticket->updateMeta('stage', getConfig('ticket.stage.audio_pre_process'));
 
-        # 4 : Process audio 
+        # 4 : Process audio         
         ProcessAudio::dispatch(getConfig('ticket.stage.audio_pre_process'), $ticket);
-
+        return true;
     }
 
 
@@ -140,6 +147,33 @@ class CallController extends Controller
         $record->delete();
         return back()->with('success',  'Call record deleted');
 
+    }
+
+
+    # Function to get call record status in real time 
+    public function getTicketStatus(Request $request){
+
+        $tickets = Ticket::all();
+        $status = [];
+        foreach($tickets as $ticket){
+
+            $callData = [];
+            if($ticket->status == getConfig('ticket.status.completed')){
+                $callData = [
+                    'title'=>$ticket->title,
+                    'description'=>$ticket->description,
+                    'language'=> ($ticket->language)?getConfig('ticket.language_text')[$ticket->language]:'-'
+                ];
+            }
+
+            $status[] = [
+                'uid' => $ticket->uid,
+                'percent' => $ticket->getStagePercent(),
+                'stage'=> $ticket->getStage()
+            ] + $callData;
+        }
+
+        return response()->json($status);
     }
 
 

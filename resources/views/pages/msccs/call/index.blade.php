@@ -6,6 +6,7 @@
 <link href="/css/page/msccs/call.css{{ config('app.link_version') }}" type="text/css" rel="stylesheet"/>
 <link href="/css/prod/component/table.min.css{{ config('app.link_version') }}" type="text/css" rel="stylesheet"/>
 <script defer type="text/javascript" src="/js/prod/component/table.min.js{{ config('app.link_version') }}"></script>
+<script defer type="text/javascript" src="/js/plugin/progressbar.min.js{{ config('app.link_version') }}"></script>
 <script defer type="text/javascript" src="/js/page/msccs/call.js{{ config('app.link_version') }}"></script>
 
 @endsection
@@ -33,7 +34,7 @@
     </div>
     <div class='row'>
         @foreach($records as $index=>$record)
-            <div class='col-sm-4'>
+            <div class='col-sm-4' id="{{$record->uid}}">
                 <div class='grid-box-item'>
                     <div role="group">
                         <button id="btnGroupDrop{{$index}}" type="button" aria-haspopup="true" aria-expanded="false" class="btn btn-default menu-tooltip" data-tooltip-content="#tooltip_menu{{$index}}">
@@ -79,10 +80,15 @@
                     <div class='img-section'> <img src='/img/icon/chat.png'/> </div>
                     <div class='content-section'>
                         <span class='badge badge-{{$record->status}}'>{{$record->getStatus()}}</span>
-                        <h1> {{$record->title??'-'}} </h1>
-                        <p> {{$record->description??'-'}} </p>
+                        <h1 class='call-title'> {{$record->title??'-'}} </h1>
+                        <p class='mb-3 call-desc'> {{$record->description??'-'}} </p>
+                        @include('component.progress_bar',[
+                            'id' => 'call' .$index,
+                            'currentValue' => $record->getStagePercent(),
+                            'stage' => $record->getStage()
+                        ])
                         <div class='detail d-flex justify-content-around align-items-center mt-5'>
-                            <p> <i class='ti ti-world'></i> {{($record->language)?getConfig('ticket.language_text')[$record->language]:'-'}} </p>
+                            <p> <i class='ti ti-world'></i> <span class='call-location'>{{($record->language)?getConfig('ticket.language_text')[$record->language]:'-'}} </span></p>
                             <p> <i class='ti ti-timer'></i> {{formatDate($record->created_at)}} </p>
                         </div>
                     </div>

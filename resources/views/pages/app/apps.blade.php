@@ -9,6 +9,8 @@
       <link rel="manifest" href="/manifest.json">
       <title>App Gallery | Modzy</title>
       <link href="/css/page/app/index.css" rel="stylesheet">
+      <script type="text/javascript" src="/js/prod/website/index.min.js{{ config('app.link_version') }}"></script>
+      <style>.swal-text{text-align:center !important;}</style>
    </head>
    <body>
       <div id="root">
@@ -208,3 +210,13 @@
             </div>
          </div>
       </div>     
+
+      
+      <script>
+
+        $(document).ready(function(){
+            swal('Modzy App Gallery','This is the App Gallery where user can explore Modzy Ready-to-use App and either embed, integrate or direct apply into their business.','info');
+        })
+
+
+        </script>

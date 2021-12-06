@@ -53,7 +53,13 @@ class ProcessAudio implements ShouldQueue
                         # Retrieve language 
                         $result = (array)$result->results->{"my-input"}->{"results.json"};
                         arsort($result);
-                        $ticket->update(['language'=> env('APP_DEMO')?'chi':array_key_first($result)]);
+                        // $ticket->update(['language'=> 'chi']);
+                        $ticket->update(['language'=> array_key_first($result)]);
+
+                         # Update ticket stage
+                        $ticket->updateMeta('stage', $stageList['audio_peri_process']);
+
+                        # Create new job to handle audio peri process
                         ProcessAudio::dispatch($stageList['audio_peri_process'], $ticket);
                     
                     }
@@ -63,10 +69,12 @@ class ProcessAudio implements ShouldQueue
                         sleep(3);
                         ProcessAudio::dispatch($stageList['audio_pre_process'], $ticket);
                     }
+
+                    return true;
                 }
                 else 
                 {
-
+                    
                     # Detect audio language
                     $result = json_decode(Modzy::detectAudioLanguage($audio));
                     
@@ -80,7 +88,10 @@ class ProcessAudio implements ShouldQueue
                     else 
                         $ticket->update(['status', getConfig('ticket.status.error')]);
 
+                    return true;
+
                 }
+                return true;
 
 
 
@@ -105,6 +116,7 @@ class ProcessAudio implements ShouldQueue
                         foreach($results as $result){
 
                             # Bind keyword if spotted
+                            $result = (array)$result;
                             if(in_array($result['word'], $keywordList)){
                                 $keyword = (clone $keywordEloquent)->where('value', $result['word'])->first();
                                 \DB::table('ticket_keyword')::create([
@@ -124,7 +136,10 @@ class ProcessAudio implements ShouldQueue
 
                         }
 
-                        # Process post audio 
+                        # Update ticket stage
+                        $ticket->updateMeta('stage', $stageList['audio_post_process']);
+
+                        # # Create new job to handle audio post process
                         ProcessAudio::dispatch($stageList['audio_post_process'],$ticket);
                     
                     }
@@ -134,6 +149,8 @@ class ProcessAudio implements ShouldQueue
                         sleep(3);
                         ProcessAudio::dispatch($stageList['audio_peri_process'], $ticket);
                     }
+
+                    return true;
 
                 }
                 else 
@@ -166,9 +183,11 @@ class ProcessAudio implements ShouldQueue
                     else 
                         $ticket->update(['status', getConfig('ticket.status.error')]);
 
+                    return true;
+
                 }
          
-
+                return true;
 
 
             # Audio Post Process - Sentiment Analysis,  named entity recognition , Text Topic Modeling , text summarization
@@ -179,27 +198,26 @@ class ProcessAudio implements ShouldQueue
                 {  
 
                     # Get sentiment job result & check if sentiment job finished ( longest job in the post audio process )
-                    $sentimentResult = json_decode(Modzy::getResult($ticket->getMeta('sentimentJobID')));
-                    dd($sentimentResult);
-                    if($sentimentResult->finished){
+                    $sentimentResult = json_decode(Modzy::getResult($ticket->getMeta('sentimentJobID')));  
+                    \Storage::put('sentimentResult.txt', $sentimentResult);                  
+                    if($sentimentResult && isset($sentimentResult->finished) && $sentimentResult->finished){
 
 
                         # Update sentiment result to ticket 
                         $ticket->updateMeta('sentiment', (array)$sentimentResult->results->{"my-input"}->{"results.json"}->data->result->classPredictions);
 
-
                         # Get Entity job result 
-                        $entityResult = json_decode(Modzy::getResult($ticket->getMeta('entityJobID')));
+                        $entityResult = json_decode(Modzy::getResult($ticket->getMeta('entityJobID')));                        
 
                         # Check entity and create customer record - if person name and location name found
                         $entityArr = (array)$entityResult->results->{"my-input"}->{"results.json"};
                         $name = null; $country = null;
                         foreach($entityArr as $arr){
                             switch($arr[1]){
-                                case "B-PER" : $name = $arr[0];
-                                case "I-PER" : $name .= ' ' . $arr[0];
-                                case "B-LOC" : $country = $arr[0];
-                                case "I-LOC" : $country .= ' '. $arr[0];
+                                case "B-PER" : $name = $arr[0]; break;
+                                case "I-PER" : $name .= ' ' . $arr[0]; break;
+                                case "B-LOC" : $country = $arr[0]; break;
+                                case "I-LOC" : $country .= ' '. $arr[0]; break;
                             }
                         }      
 
@@ -231,7 +249,9 @@ class ProcessAudio implements ShouldQueue
                         $ticket->update(['title' => $title]);
                    
                         # Mark audio processing as completed 
-                        $ticket->update(['status' => getConfig('ticket.status.completed')]);
+                        $meta = $ticket->getMeta();
+                        $meta->stage = $stageList['completed'];
+                        $ticket->update(['status' => getConfig('ticket.status.completed'), 'meta'=> json_encode($meta)]);
 
                         return true;
 
@@ -243,6 +263,8 @@ class ProcessAudio implements ShouldQueue
                         ProcessAudio::dispatch($stageList['audio_post_process'], $ticket);
 
                     }
+
+                    return true;
                        
                 }
                 else 
@@ -264,22 +286,26 @@ class ProcessAudio implements ShouldQueue
                     $checkProcess = true;
                     $sentiment = json_decode(Modzy::sentimentAnalysis($ticket->transcript));
                     $checkProcess = ($sentiment->status  == "SUBMITTED");
-
+                    
                     # If Modzy Process is success
                     if($checkProcess){
-                        $ticket->updateMeta('stage', $stageList['audio_post_processed']);
-                        $ticket->updateMeta('sentimentJobID', $sentiment->jobIdentifier);
-                        $ticket->updateMeta('entityJobID', $entity->jobIdentifier);
-                        $ticket->updateMeta('modelingJobID', $modeling->jobIdentifier);
-                        $ticket->updateMeta('summarizationJobID', $summarization->jobIdentifier);
-                        sleep(3);
+                        $meta = [
+                            'sentimentJobID' =>  $sentiment->jobIdentifier,
+                            'entityJobID' =>  $entity->jobIdentifier,
+                            'modelingJobID' =>  $modeling->jobIdentifier,
+                            'summarizationJobID' =>  $summarization->jobIdentifier,
+                            'stage' => $stageList['audio_post_processed']                       
+                        ];
+                        $ticket->update(['meta'=>json_encode($meta)]);
                         ProcessAudio::dispatch($stageList['audio_post_process'], $ticket);
                     }   
                     else 
                         $ticket->update(['status', getConfig('ticket.status.error')]);
 
+                    return true;
+
                 }
-                
+                return true;
 
         }
 

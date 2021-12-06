@@ -26,7 +26,7 @@
             <div id='buttonSection'>
                 <a href='{{env("MSCCS_URL")}}'><button class='btn btn-primary nav-btn hover start-btn' type='button'> <i class="ti ti-heart"></i><span> Get Started</span></button></a>
                 <a href='{{env("MODZY_APP_URL")}}'><button class='btn btn-primary nav-btn about-btn' type='button'> <i class="ti ti-ruler-pencil"></i><span> Deployment Plan </span></button></a>
-                <a href='https://github.com/jensenlim2481284/MSCCS'><button class='btn btn-primary nav-btn about-btn' type='button'> <i class="ti ti-github"></i><span> Github </span></button></a>
+                <a href='https://github.com/jensenlim2481284/MSCCS' target="_blank"><button class='btn btn-primary nav-btn about-btn' type='button'> <i class="ti ti-github"></i><span> Github </span></button></a>
             </div>
         </div>
     </div>

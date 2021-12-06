@@ -1,10 +1,1 @@
-{
-    "/css/prod/website/index.min.css": "/css/prod/website/index.min.css",
-    "/js/prod/website/index.min.js": "/js/prod/website/index.min.js",
-    "/css/prod/msccs/index.min.css": "/css/prod/msccs/index.min.css",
-    "/js/prod/msccs/index.min.js": "/js/prod/msccs/index.min.js",
-    "/css/prod/component/table.min.css": "/css/prod/component/table.min.css",
-    "/js/prod/component/table.min.js": "/js/prod/component/table.min.js",
-    "/js/prod/component/general.min.js": "/js/prod/component/general.min.js",
-    "/css/prod/component/general.min.css": "/css/prod/component/general.min.css"
-}
+{}

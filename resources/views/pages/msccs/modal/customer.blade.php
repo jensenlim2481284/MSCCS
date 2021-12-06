@@ -9,8 +9,8 @@
             </div>
             <div class="modal-body row">
                 <div class='col-sm-12 form-group'>
-                    <p>Name </p>
-                    <input type="text" class="form-control" name="name">
+                    <p class='required'>Name </p>
+                    <input type="text" class="form-control" name="name" required>
                 </div>
                 <div class='col-sm-12 form-group'>
                     <p> Email </p>
