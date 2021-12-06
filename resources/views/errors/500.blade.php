@@ -11,4 +11,4 @@
 
 @endsection
 
-@section('message',"Sorry I don't have enough time to do the testing, please reach to me and I will solve it as soon as possible")
+@section('message',"Sorry something went wrong, please reach to me and I will solve it as soon as possible")

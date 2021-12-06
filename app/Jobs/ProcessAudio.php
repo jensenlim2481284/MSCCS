@@ -53,7 +53,7 @@ class ProcessAudio implements ShouldQueue
                         # Retrieve language 
                         $result = (array)$result->results->{"my-input"}->{"results.json"};
                         arsort($result);
-                        // $ticket->update(['language'=> 'chi']);
+                        
                         $ticket->update(['language'=> array_key_first($result)]);
 
                          # Update ticket stage
